@@ -1,0 +1,10 @@
+idf_component_register(SRCS
+                            "main.c"
+                            "components/card_reader.c"
+                            "components/hardware.c"
+                            "components/usb_hid.c"
+                            "components/ws2812.c"
+                       INCLUDE_DIRS
+                            "."
+                            "./components"
+                       )
