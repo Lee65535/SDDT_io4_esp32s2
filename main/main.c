@@ -22,9 +22,12 @@ _Noreturn void app_main(void) {
     printf("-------- done --------\n");
 
     io4_output_t data;
-    memset(&data, 0, 64);
+    memset(&data, 0, 63);
 
     for(;;) {
+        hardware_update(&data);
+        usb_hid_report(&data);
+
         vTaskDelay(2 / portTICK_RATE_MS);
     }
 }

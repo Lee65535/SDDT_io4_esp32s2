@@ -33,7 +33,7 @@ void hardware_init() {
     adc1_config_channel_atten(LEVER_PIN, ADC_ATTEN_DB_11);
 }
 
-uint8_t io4_system_status;
+uint8_t io4_system_status = 0x02;
 
 void hardware_update(io4_output_t *data) {
     // for position in data->Switch, ref to segatools
@@ -49,7 +49,7 @@ void hardware_update(io4_output_t *data) {
 
     for (int i = 0; i < 10; i++) {
         int state = gpio_get_level(PIN_SETTINGS[i]);
-        if (state) {
+        if (state ^ PINS_MODES[i]) {
             if (i == 6 || i == 4 || i == 3) {
                 data->Switch[1] |= PIN_MAP[i];
             } else {
@@ -61,25 +61,30 @@ void hardware_update(io4_output_t *data) {
     static float lever_smooth = 0;
     lever_smooth = lever_smooth * 0.5f + (float) adc1_get_raw(LEVER_PIN) * 0.5f;
     data->Analog[0] = (int16_t) (0x7FFF - lever_smooth);
-    data->report_id = 0x01;
+    // data->report_id = 0x01;
     data->SystemStatus = io4_system_status;
     data->UsbStatus = 0;
 }
 
-void input_callback(io4_input_t * input) {
+void input_callback(io4_input_t* input) {
     switch (input->cmd) {
         case IO4_CMD_SET_COMM_TIMEOUT:
-            io4_system_status = AM_USBIOP_SYSTEM_STATUS_TIMEOUT_SETTING;
+            printf("IO4: SET COMMUNICATE TIMEOUT\n");
+            io4_system_status = 0x30;
             break;
         case IO4_CMD_SET_SAMPLING_COUNT:
-            io4_system_status = AM_USBIOP_SYSTEM_STATUS_SAMPLING_SETTING;
+            printf("IO4: SET SAMPLING COUNT\n");
+            io4_system_status = 0x30;
             break;
         case IO4_CMD_CLEAR_BOARD_STATUS:
+            printf("IO4: CLEAR BOARD STATUS\n");
             io4_system_status = 0x00;
             break;
+        case IO4_CMD_SET_GENERAL_OUTPUT:
+            printf("IO4: SET GENERAL OUTPUT\n");
+
+            break;
         default:
-            io4_system_status = 0x00;
             break;
     }
 }
-
