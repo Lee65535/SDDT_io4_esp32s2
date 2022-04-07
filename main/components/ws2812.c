@@ -70,6 +70,9 @@ void led_init() {
 
     led->clear(led, 50);
     h = 0;
+
+    led->set_pixel(led, 0, 0xFF, 0xFF, 0xFF);
+    led->refresh(led, 100);
 }
 
 

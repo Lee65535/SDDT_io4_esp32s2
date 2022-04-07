@@ -65,6 +65,7 @@ bool hardware_update(io4_output_t *data) {
     data->Analog[0] = (int16_t) (0x7FFF - lever_smooth);
     data->report_id = 0x01;
     data->SystemStatus = io4_system_status;
+    data->UsbStatus = 0;
     return modified;
 }
 
