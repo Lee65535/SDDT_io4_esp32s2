@@ -34,6 +34,8 @@ void hardware_init() {
 bool hardware_update(hid_output_t *output) {
     bool modified = false;
 
+    // TODO modify to IO4 format
+
     for(int i = 0; i < 10; i++) {
         int state = gpio_get_level(PIN_SETTINGS[i]);
         if(PINS_MODES[i]) {
