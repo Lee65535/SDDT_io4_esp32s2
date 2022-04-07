@@ -56,6 +56,9 @@ void led_strip_hsv2rgb(uint32_t h, uint32_t s, uint32_t v, uint32_t *r, uint32_t
 uint16_t h;
 led_strip_t *led;
 
+// TODO Add static button LED
+// TODO Add side LED
+
 void led_init() {
     rmt_config_t config = RMT_DEFAULT_CONFIG_TX(GPIO_NUM_18, RMT_CHANNEL_0);
     config.clk_div = 2;

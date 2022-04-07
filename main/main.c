@@ -21,14 +21,11 @@ _Noreturn void app_main(void) {
     led_init();
     printf("-------- done --------\n");
 
-    hid_output_t data;
+    io4_output_t data;
     memset(&data, 0, 64);
-
-    uint64_t id;
 
     for(;;) {
         bool send = hardware_update(&data);
-
         usb_hid_report(&data);
         vTaskDelay(2 / portTICK_RATE_MS);
     }

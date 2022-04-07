@@ -4,6 +4,7 @@
 #include "tinyusb.h"
 
 #include "usb_hid.h"
+#include "hardware.h"
 #include "ws2812.h"
 
 
@@ -13,15 +14,17 @@ void usb_init() {
 }
 
 void tud_hid_set_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t report_type, uint8_t const *buffer, uint16_t buffer_size) {
-    led_update((color_t *)buffer);
+//    led_update((color_t *)buffer);
+    input_callback((io4_input_t *)buffer);
+
 }
 
 uint16_t tud_hid_get_report_cb(uint8_t itf, uint8_t report_id, hid_report_type_t report_type, uint8_t *buffer, uint16_t reqlen) {
     return 0;
 }
 
-void usb_hid_report(hid_output_t *data) {
+void usb_hid_report(io4_output_t *data) {
     if(tud_hid_ready()) {
-        tud_hid_report(0, data, sizeof(hid_output_t));
+        tud_hid_report(0, data, sizeof(io4_output_t));
     }
 }

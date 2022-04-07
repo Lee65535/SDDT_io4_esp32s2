@@ -5,7 +5,7 @@ Python requirements from C:\Users\user\esp-idf\requirements.txt are satisfied.
 -- Project sdkconfig file C:/Users/user/OneDrive/lky/ongeki/io4_esp32s2/sdkconfig
 Loading defaults file C:/Users/user/OneDrive/lky/ongeki/io4_esp32s2/sdkconfig.defaults...
 -- Could NOT find Perl (missing: PERL_EXECUTABLE) 
--- App "main" version: ddf6ba7-dirty
+-- App "main" version: bcbb3a9
 -- Adding linker script C:/Users/user/OneDrive/lky/ongeki/io4_esp32s2/cmake-build-debug/esp-idf/esp_system/ld/memory.ld
 -- Adding linker script C:/Users/user/esp-idf/components/esp_system/ld/esp32s2/sections.ld.in
 -- Adding linker script C:/Users/user/esp-idf/components/esp_rom/esp32s2/ld/esp32s2.rom.ld
