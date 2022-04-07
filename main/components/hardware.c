@@ -35,9 +35,7 @@ void hardware_init() {
 
 uint8_t io4_system_status;
 
-bool hardware_update(io4_output_t *data) {
-    bool modified = false;
-
+void hardware_update(io4_output_t *data) {
     // for position in data->Switch, ref to segatools
     uint16_t PIN_MAP[] = {
             LA, LB, LC, LS, LM,
@@ -66,7 +64,6 @@ bool hardware_update(io4_output_t *data) {
     data->report_id = 0x01;
     data->SystemStatus = io4_system_status;
     data->UsbStatus = 0;
-    return modified;
 }
 
 void input_callback(io4_input_t * input) {
@@ -81,7 +78,7 @@ void input_callback(io4_input_t * input) {
             io4_system_status = 0x00;
             break;
         default:
-            io4_system_status = 0x02;
+            io4_system_status = 0x00;
             break;
     }
 }

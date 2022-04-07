@@ -13,7 +13,7 @@ All files below are in your esp-idf folder (typically C:\Users\<you>\esp-idf\ if
 
 (above files are attached)
 
-- components/tinyusb/addition/src/descriptors_control.c (modify HID report description at line 24)
+- components/tinyusb/addition/src/descriptors_control.c (modify `#define MAX_DESC_BUF_SIZE 32` to `#define MAX_DESC_BUF_SIZE 128` at line 21 and  modify HID report description at line 24)
 
 ### Some USB config
 

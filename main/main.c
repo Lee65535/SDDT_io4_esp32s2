@@ -25,8 +25,6 @@ _Noreturn void app_main(void) {
     memset(&data, 0, 64);
 
     for(;;) {
-        bool send = hardware_update(&data);
-        usb_hid_report(&data);
         vTaskDelay(2 / portTICK_RATE_MS);
     }
 }

@@ -20,6 +20,6 @@ enum switch_one {
 
 void hardware_init();
 
-bool hardware_update(io4_output_t *output);
+void hardware_update(io4_output_t *output);
 
 void input_callback(io4_input_t *input);
