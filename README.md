@@ -21,9 +21,20 @@ Device Name: `I/O CONTROL BD;15257;01;90;1831;6679A;00;GOUT=14_ADIN=8,E_ROTIN=4_
 
 Vendor ID: `0x0CA3`
 
-Product ID: `0x0002` (does not matter)
+Product ID: `0x0021` (does not matter)
 
 Manufacturer: `SEGA` (does not matter)
+
+USB Description:
+1. Change `TUD_HID_DESCRIPTOR` line to
+```c++
+TUD_HID_INOUT_DESCRIPTOR(ITF_NUM_HID, 0, HID_PROTOCOL_NONE, sizeof(desc_hid_report), 0x01,0x81, CFG_TUD_HID_EP_BUFSIZE, 1)
+```
+
+2. Change `TUSB_DESC_TOTAL_LEN` to
+```c++
+TUSB_DESC_TOTAL_LEN = TUD_CONFIG_DESC_LEN + CFG_TUD_CDC * TUD_CDC_DESC_LEN + CFG_TUD_MSC * TUD_MSC_DESC_LEN + CFG_TUD_HID * TUD_HID_INOUT_DESC_LEN
+```
 
 HID Report Description:
 ```C++
