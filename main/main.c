@@ -13,6 +13,8 @@
 
 _Noreturn void app_main(void) {
     printf("-------- board init --------\n");
+    printf("init card reader\n");
+    card_reader_init();
     printf("init usb hid device\n");
     usb_init();
     printf("init hardware\n");

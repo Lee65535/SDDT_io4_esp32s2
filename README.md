@@ -1,8 +1,18 @@
 # ESP32-S2 Ongeki IO4
 
-Forked from GEEKiDoS's esp32-s2 ongeki con 
+Forked from GEEKiDoS's esp32-s2 ongeki con
 
-esp-idf version: 4.4
+HUGE thank to GEEKiDoS, I (Lee) did nothing but write this README
+
+**esp-idf version: 4.4**
+
+## Setup
+
+Before proceeding, make sure you have esp-idf 4.4 installed;
+
+For CLion, you can set environment variables in settings/preferences without altering PATH system-wise.
+
+In `idf.py menuconfig`, enable TinyUSB stack, enable HID and modify configurations accordingly.
 
 ### esp-idf Files Need to Be Modified:
 
@@ -11,11 +21,13 @@ All files below are in your esp-idf folder (typically C:\Users\<you>\esp-idf\ if
 - components/tinyusb/Kconfig
 - components/tinyusb/additions/include/tusb_config.h
 
-(above files are attached)
+(above files are attached in "modify idf/", just copy and paste)
 
-- components/tinyusb/addition/src/descriptors_control.c (modify `#define MAX_DESC_BUF_SIZE 32` to `#define MAX_DESC_BUF_SIZE 128` at line 21 and  modify HID report description at line 24)
+- components/tinyusb/addition/src/descriptors_control.c and .h (modify according to guidance below)
 
-### Some USB config
+### USB Config
+
+#### In `idf.py menuconfig`
 
 Device Name: `I/O CONTROL BD;15257;01;90;1831;6679A;00;GOUT=14_ADIN=8,E_ROTIN=4_COININ=2_SWIN=2,E_UQ1=41,6;`
 
@@ -25,18 +37,17 @@ Product ID: `0x0021` (does not matter)
 
 Manufacturer: `SEGA` (does not matter)
 
-USB Description:
-1. Change `TUD_HID_DESCRIPTOR` line to
+#### In `descriptors_control.c`
+
+1. Change `#define MAX_DESC_BUF_SIZE 32` to `#define MAX_DESC_BUF_SIZE 128`
+2. Change `TUD_HID_DESCRIPTOR` line to
+
 ```c++
 TUD_HID_INOUT_DESCRIPTOR(ITF_NUM_HID, 0, HID_PROTOCOL_NONE, sizeof(desc_hid_report), 0x01,0x81, CFG_TUD_HID_EP_BUFSIZE, 1)
 ```
 
-2. Change `TUSB_DESC_TOTAL_LEN` to
-```c++
-TUSB_DESC_TOTAL_LEN = TUD_CONFIG_DESC_LEN + CFG_TUD_CDC * TUD_CDC_DESC_LEN + CFG_TUD_MSC * TUD_MSC_DESC_LEN + CFG_TUD_HID * TUD_HID_INOUT_DESC_LEN
-```
+3. Change `desc_hid_report` to
 
-HID Report Description:
 ```C++
 uint8_t const desc_hid_report[] = {
         0x05, 0x01,                     // Usage Page (Generic Desktop Ctrls)
@@ -96,3 +107,10 @@ uint8_t const desc_hid_report[] = {
 };
 ```
 
+#### In descriptors_control.h
+
+Change `TUSB_DESC_TOTAL_LEN` to
+
+```c++
+TUSB_DESC_TOTAL_LEN = TUD_CONFIG_DESC_LEN + CFG_TUD_CDC * TUD_CDC_DESC_LEN + CFG_TUD_MSC * TUD_MSC_DESC_LEN + CFG_TUD_HID * TUD_HID_INOUT_DESC_LEN
+```

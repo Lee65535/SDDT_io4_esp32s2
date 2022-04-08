@@ -4,7 +4,7 @@ idf_component_register(SRCS
                             "components/hardware.c"
                             "components/usb_hid.c"
                             "components/ws2812.c"
-                       INCLUDE_DIRS
+                            "components/pn532.c"
                             "."
                             "./components"
                        )
