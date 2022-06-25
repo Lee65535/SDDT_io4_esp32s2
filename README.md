@@ -1,3 +1,5 @@
+# Deprecated, plz see [GEEKiDoS/ongeeki-firmware](https://github.com/GEEKiDoS/ongeeki-firmware)
+
 # ESP32-S2 Ongeki IO4
 
 Forked from GEEKiDoS's esp32-s2 ongeki con 
